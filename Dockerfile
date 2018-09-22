@@ -21,7 +21,8 @@ RUN apt-get install \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN adduser --disabled-password --gecos "" -u 1001 user
+RUN adduser --disabled-password --gecos "" -u 1001 user \
+ && usermod -G dialout user
 USER user
 RUN npm config set prefix=/home/user/.npm-packages \
  && git clone https://github.com/Koenkk/zigbee2mqtt.git /home/user/zigbee2mqtt \
