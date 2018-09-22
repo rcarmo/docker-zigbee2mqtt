@@ -30,7 +30,7 @@ RUN npm config set prefix=/home/user/.npm-packages \
  && npm install
 
 VOLUME /home/user/zigbee2mqtt/data
-CMD cd /home/user/zigbee2mqtt && npm start
+CMD cd /home/user/zigbee2mqtt && DEBUG="$DEBUG" npm start
 
 ARG VCS_REF
 ARG VCS_URL
