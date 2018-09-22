@@ -40,10 +40,10 @@ network:
 	lan
 
 shell:
-	docker run --net=lan -h $(HOSTNAME) -it $(IMAGE_NAME):$(ARCH) /bin/sh
+	docker run -h $(HOSTNAME) -it $(IMAGE_NAME):$(ARCH) /bin/sh
 
 test: 
-	docker run -v $(DATA_FOLDER):/home/user/.homebridge \
+	docker run -v $(DATA_FOLDER):/home/user/zigbee2mqtt/data \
 		--net=host -h $(HOSTNAME) $(IMAGE_NAME):$(ARCH)
 
 logs:
@@ -54,8 +54,8 @@ truncate:
 
 daemon: 
 	-mkdir -p $(DATA_FOLDER)
-	docker run -v $(DATA_FOLDER):/home/user/.homebridge \
-		-v /var/run/dbus:/var/run/dbus \
+	docker run -v $(DATA_FOLDER):/home/user/zigbee2mqtt/data \
+		-v /dev/ttyACM0:/dev/ttyACM0 --privileged \
 		--net=host --name $(HOSTNAME) -d --restart unless-stopped $(IMAGE_NAME):$(ARCH)
 
 clean:
