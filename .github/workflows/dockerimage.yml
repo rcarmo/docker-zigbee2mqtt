@@ -12,6 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: actions/docker/login@master
+      with: 
+        - secrets: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
     - name: Build Image
       run: make && make tag
     - name: Push Image
