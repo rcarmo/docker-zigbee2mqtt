@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+    - master
+    - release/*
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/docker/login@master
+    - name: Build Image
+      run: make && make tag
+    - name: Push Image
+      run: make push
+ 
